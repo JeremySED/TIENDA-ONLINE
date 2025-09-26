@@ -1,51 +1,9 @@
-<?php
-// --- LÓGICA PHP ---
-$resultado = "";
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $clave   = intval($_POST['clave'] ?? 0);
-    $minutos = floatval($_POST['minutos'] ?? 0);
-
-    // Tabla de zonas y precios
-    $zonas = [
-        12 => ["América del Norte", 2.1],
-        15 => ["América Central",   2.6],
-        18 => ["América del Sur",   4.5],
-        19 => ["Europa",            3.6],
-        23 => ["Asia",              6.5],
-        25 => ["África",            7.8],
-        29 => ["Oceanía",           3.9]
-    ];
-
-    if (isset($zonas[$clave])) {
-        $zona   = $zonas[$clave][0];
-        $precio = $zonas[$clave][1];
-        $total  = $precio * $minutos;
-        $resultado = "
-            <div class='resultado fadeUp'>
-                <h2>Resultado de la Consulta</h2>
-                <p>Zona: <strong>{$zona}</strong></p>
-                <p>Precio por minuto: <strong>\${$precio}</strong></p>
-                <p>Minutos hablados: <strong>{$minutos}</strong></p>
-                <hr>
-                <p>Costo total de la llamada: <strong>\$".number_format($total,2)."</strong></p>
-            </div>
-        ";
-    } else {
-        $resultado = "
-            <div class='resultado fadeUp'>
-                <h2>Clave inválida</h2>
-                <p>No existe una zona registrada con la clave <strong>{$clave}</strong>.</p>
-            </div>
-        ";
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta de Costo de Llamada</title>
+<title>Costo de Llamadas Internacionales</title>
 
 <!-- Tipografías -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
@@ -196,18 +154,18 @@ hr{border:1px solid #00e5ff;margin:15px 0;}
         </table>
     </div>
 
-    <form method="POST" action="">
+    <form id="form-llamada">
         <h2>Calcular Costo de Llamada</h2>
         <label for="clave">Clave de zona</label>
-        <input type="number" name="clave" id="clave" required placeholder="Ej: 12">
+        <input type="number" id="clave" required placeholder="Ej: 12">
 
         <label for="minutos">Minutos hablados</label>
-        <input type="number" name="minutos" id="minutos" required min="0" step="0.1" placeholder="Ej: 10">
+        <input type="number" id="minutos" required min="0" step="0.1" placeholder="Ej: 10">
 
         <button type="submit">Calcular</button>
     </form>
 
-    <?php echo $resultado; ?>
+    <div id="resultado"></div>
 </main>
 
 <footer style="text-align:center;margin-top:40px;background:rgba(0,0,0,0.7);padding:15px;">
@@ -239,6 +197,49 @@ particlesJS("particles-js", {
     }
   },
   retina_detect: true
+});
+
+// ----------- LÓGICA EN JAVASCRIPT -----------
+document.getElementById('form-llamada').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const clave   = parseInt(document.getElementById('clave').value);
+    const minutos = parseFloat(document.getElementById('minutos').value);
+
+    const zonas = {
+        12: ["América del Norte", 2.1],
+        15: ["América Central",   2.6],
+        18: ["América del Sur",   4.5],
+        19: ["Europa",            3.6],
+        23: ["Asia",              6.5],
+        25: ["África",            7.8],
+        29: ["Oceanía",           3.9]
+    };
+
+    const divResultado = document.getElementById('resultado');
+
+    if(zonas[clave]){
+        const [zona, precio] = zonas[clave];
+        const total = (precio * minutos).toFixed(2);
+
+        divResultado.innerHTML = `
+            <div class='resultado fadeUp'>
+                <h2>Resultado de la Consulta</h2>
+                <p>Zona: <strong>${zona}</strong></p>
+                <p>Precio por minuto: <strong>$${precio}</strong></p>
+                <p>Minutos hablados: <strong>${minutos}</strong></p>
+                <hr>
+                <p>Costo total de la llamada: <strong>$${total}</strong></p>
+            </div>
+        `;
+    } else {
+        divResultado.innerHTML = `
+            <div class='resultado fadeUp'>
+                <h2>Clave inválida</h2>
+                <p>No existe una zona registrada con la clave <strong>${clave}</strong>.</p>
+            </div>
+        `;
+    }
 });
 </script>
 </body>
