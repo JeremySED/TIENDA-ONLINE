@@ -1,29 +1,3 @@
-<?php
-// ----------------------
-// Datos de ejemplo
-// ----------------------
-$postulantes = [
-    ["nombre"=>"Ana","colegio"=>"NACIONAL"],
-    ["nombre"=>"Bruno","colegio"=>"PARTICULAR"],
-    ["nombre"=>"Carla","colegio"=>"NACIONAL"],
-    ["nombre"=>"Diego","colegio"=>"PARTICULAR"]
-];
-
-// ----------------------
-// Cálculo de importes
-// ----------------------
-$importe = 285; // precio base examen de admisión
-foreach($postulantes as &$p){
-    if(strtoupper($p["colegio"])=="NACIONAL"){
-        $descuento = $importe * 0.10;
-    } else {
-        $descuento = $importe * 0.03;
-    }
-    $p["descuento"] = number_format($descuento,2);
-    $p["pago_final"] = number_format($importe - $descuento,2);
-}
-unset($p);
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,7 +5,7 @@ unset($p);
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Consulta 5 - Derecho de Examen</title>
 
-<!-- Fuentes e iconos -->
+<!-- Fuentes -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -110,23 +84,19 @@ footer{
 </header>
 
 <main>
-    <table>
-        <tr>
-            <th>Nombre</th>
-            <th>Procedencia del colegio</th>
-            <th>Importe Base (S/)</th>
-            <th>Descuento (S/)</th>
-            <th>Importe a Pagar (S/)</th>
-        </tr>
-        <?php foreach($postulantes as $p): ?>
-        <tr>
-            <td><?= $p["nombre"] ?></td>
-            <td><?= $p["colegio"] ?></td>
-            <td>285.00</td>
-            <td><?= $p["descuento"] ?></td>
-            <td><?= $p["pago_final"] ?></td>
-        </tr>
-        <?php endforeach; ?>
+    <table id="tablaPostulantes">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Procedencia del colegio</th>
+                <th>Importe Base (S/)</th>
+                <th>Descuento (S/)</th>
+                <th>Importe a Pagar (S/)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Filas generadas por JavaScript -->
+        </tbody>
     </table>
 </main>
 
@@ -137,6 +107,43 @@ footer{
 <!-- Partículas -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
+// ----------------------
+// Datos de ejemplo
+// ----------------------
+const postulantes = [
+    {nombre:"Ana", colegio:"NACIONAL"},
+    {nombre:"Bruno", colegio:"PARTICULAR"},
+    {nombre:"Carla", colegio:"NACIONAL"},
+    {nombre:"Diego", colegio:"PARTICULAR"}
+];
+
+// ----------------------
+// Cálculo de importes
+// ----------------------
+const importe = 285; // precio base examen de admisión
+
+const tbody = document.querySelector("#tablaPostulantes tbody");
+
+postulantes.forEach(p=>{
+    const descuento = (p.colegio.toUpperCase()==="NACIONAL")
+        ? importe * 0.10
+        : importe * 0.03;
+    const pagoFinal = importe - descuento;
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+        <td>${p.nombre}</td>
+        <td>${p.colegio}</td>
+        <td>${importe.toFixed(2)}</td>
+        <td>${descuento.toFixed(2)}</td>
+        <td>${pagoFinal.toFixed(2)}</td>
+    `;
+    tbody.appendChild(tr);
+});
+
+// ----------------------
+// Partículas
+// ----------------------
 particlesJS("particles-js", {
   particles: {
     number: { value: 80, density: { enable: true, value_area: 800 } },
