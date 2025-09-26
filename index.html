@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedidos en Línea</title>
+
+<!-- Tipografías originales -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<!-- Iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Poppins',sans-serif;
+    background:url("fondo.jpg") no-repeat center center fixed;
+    background-size:cover;
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+/* Partículas */
+#particles-js{
+    position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;
+}
+
+/* ---- HEADER ---- */
+header{
+    text-align:center;
+    padding:40px 20px;
+    background:rgba(0,0,0,0.55);
+    backdrop-filter:blur(6px);
+    animation:fadeIn 2s ease-in;
+}
+header h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:3rem;
+    text-transform:uppercase;
+    color:#00e5ff;
+    text-shadow:0 0 15px #00e5ff;
+}
+
+/* ---- NAV ---- */
+nav ul{
+    display:flex;
+    justify-content:center;
+    list-style:none;
+    margin-top:20px;
+    gap:30px;
+}
+nav ul li{
+    position:relative;
+    cursor:pointer;
+    font-weight:600;
+    text-transform:uppercase;
+    transition:color .3s;
+}
+nav ul li a,nav ul li{color:#fff;text-decoration:none}
+nav ul li:hover{color:#00e5ff}
+
+/* Submenú */
+nav ul li ul{
+    position:absolute;
+    top:100%;
+    left:0;
+    background:rgba(0,0,0,0.8);
+    padding:10px;
+    display:none;
+    border-radius:10px;
+    min-width:180px;
+}
+nav ul li ul li{padding:8px 15px;white-space:nowrap}
+nav ul li ul li a{color:#fff;text-decoration:none}
+nav ul li ul li:hover{background:#00e5ff;color:#000}
+
+.nav-item.show-submenu > ul{display:block}
+
+/* ---- CONTENIDO ---- */
+.padres{display:flex;justify-content:center;margin:50px auto}
+.hijo{
+    display:flex;gap:30px;flex-wrap:wrap;
+    max-width:1200px;justify-content:center;
+}
+.nieto{
+    background:rgba(0,0,0,0.7);
+    padding:20px;border-radius:15px;
+    text-align:center;width:300px;
+    transition:transform .4s,box-shadow .4s;
+    animation:fadeUp 1.5s ease-in;
+}
+.nieto:hover{
+    transform:translateY(-10px) scale(1.05);
+    box-shadow:0 0 20px #00e5ff;
+}
+.nieto h2{
+    font-family:'Orbitron',sans-serif;
+    margin-bottom:15px;color:#00e5ff;
+    font-weight:700;
+}
+.nieto img{width:100%;border-radius:10px;margin-bottom:15px}
+.nieto p{font-weight:400;font-size:0.95rem;line-height:1.4}
+
+/* ---- REDES ---- */
+.social{text-align:center;margin:40px 0;animation:fadeIn 2s ease-in}
+.social h2{
+    font-family:'Orbitron',sans-serif;
+    margin-bottom:20px;color:#00e5ff;
+}
+.social a{
+    display:inline-block;margin:0 15px;
+    font-size:2rem;color:#fff;
+    transition:transform .3s,color .3s;
+}
+.social a:hover{color:#00e5ff;transform:scale(1.3)}
+
+/* ---- FOOTER ---- */
+footer{
+    background:rgba(0,0,0,0.7);
+    text-align:center;padding:20px;
+    margin-top:40px;font-size:0.9rem;
+}
+
+/* ---- ANIMACIONES ---- */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+
+<body>
+<div id="particles-js"></div>
+
+<header>
+    <h1>Pedidos en Línea</h1>
+    <nav>
+        <ul>
+            <li><a href="vision.html">Visión</a></li>
+            <li><a href="mision.html">Misión</a></li>
+            <li><a href="pedidos.html">Pedidos</a></li>
+            <li class="nav-item" id="nav-reportes">
+                <a href="#">Reportes <i class="fa fa-caret-down"></i></a>
+                <ul>
+                    <li><a href="consulta1.php">Consulta 1</a></li>
+                    <li><a href="consulta2.php">Consulta 2</a></li>
+                    <li><a href="consulta3.php">Consulta 3</a></li>
+                    <li><a href="consulta4.php">Consulta 4</a></li>
+                    <li><a href="consulta5.php">Consulta 5</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="padres">
+        <div class="hijo">
+            <div class="nieto">
+                <h2>Tienda Propia</h2>
+                <img src="img1.jpg" alt="">
+                <p>Crea tu propia tienda en línea y controla tu marca y clientes al 100%.</p>
+            </div>
+
+            <div class="nieto">
+                <h2>Pedidos Online</h2>
+                <img src="img2.webp" alt="">
+                <p>Compra y vende en un clic. Rápido, seguro y disponible 24/7 para tus clientes.</p>
+            </div>
+
+            <div class="nieto">
+                <h2>Ofertas Exclusivas</h2>
+                <img src="img3.jpeg" alt="">
+                <p>Atrae compradores con descuentos irresistibles y promociones de impacto inmediato.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="social">
+        <h2>Síguenos en nuestras redes</h2>
+        <a href="https://facebook.com/tu_pagina" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://instagram.com/tu_usuario" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://twitter.com/tu_usuario" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://youtube.com/@tu_canal" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://wa.me/51999999999" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/es-419/" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://discord.com/" target="_blank"><i class="fab fa-discord"></i></a>
+    </div>
+</main>
+
+<footer>
+    <p>Derechos reservados por: Encinas Dávila Jeremy Stefano</p>
+</footer>
+
+<!-- Librería de partículas -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+// Partículas (mismo efecto original)
+particlesJS("particles-js", {
+  particles: {
+    number: { value: 80, density: { enable: true, value_area: 800 } },
+    color: { value: "#00e5ff" },
+    shape: { type: "circle" },
+    opacity: { value: 0.5 },
+    size: { value: 3, random: true },
+    line_linked: { enable: true, distance: 150, color: "#00e5ff", opacity: 0.4, width: 1 },
+    move: { enable: true, speed: 4, direction: "none", out_mode: "out" }
+  },
+  interactivity: {
+    events: {
+      onhover: { enable: true, mode: "repulse" },
+      onclick: { enable: true, mode: "push" },
+      resize: true
+    },
+    modes: {
+      repulse: { distance: 100, duration: 0.4 },
+      push: { particles_nb: 4 }
+    }
+  },
+  retina_detect: true
+});
+
+// Submenú que se mantiene abierto
+(function(){
+  const navReportes = document.getElementById('nav-reportes');
+  let timer;
+  navReportes.addEventListener('mouseenter', () => {
+    clearTimeout(timer);
+    navReportes.classList.add('show-submenu');
+  });
+  navReportes.addEventListener('mouseleave', () => {
+    timer = setTimeout(() => navReportes.classList.remove('show-submenu'), 200);
+  });
+})();
+</script>
+</body>
+</html>
