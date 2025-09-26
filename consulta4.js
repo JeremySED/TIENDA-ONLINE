@@ -1,175 +1,132 @@
-<?php
-// Datos de los trabajadores
-$trabajadores = [
-    [
-        "nombre" => "EKEKO",
-        "horas"  => 130,
-        "pago"   => 20
-    ],
-    [
-        "nombre" => "HUACHOLA",
-        "horas"  => 100,
-        "pago"   => 15
-    ]
-];
-
-foreach($trabajadores as &$t){
-    $sb   = $t["horas"] * $t["pago"]; // Sueldo Bruto
-    $rete = ($sb > 1500) ? $sb * 0.10 : 0; // Retención
-    $sn   = $sb - $rete;              // Sueldo Neto
-    $t["sb"]   = number_format($sb,2);
-    $t["rete"] = number_format($rete,2);
-    $t["sn"]   = number_format($sn,2);
-}
-unset($t);
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta 4 - Sueldo de Trabajadores</title>
-
-<!-- Tipografías y iconos -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<title>Consulta 3 - Promedio Final</title>
+<link rel="stylesheet" href="consulta1.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-    font-family:'Poppins',sans-serif;
-    background:url("fondo.jpg") no-repeat center center fixed;
-    background-size:cover;
-    color:#fff;
-    min-height:100vh;
-    overflow-x:hidden;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
-#particles-js{
-    position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;
+form {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 400px;
+    margin: 80px auto;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
-
-/* HEADER */
-header{
-    text-align:center;
-    padding:40px 20px;
-    background:rgba(0,0,0,0.55);
-    backdrop-filter:blur(6px);
-    animation:fadeIn 2s ease-in;
+form input, form select {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    text-align: center;
 }
-header h1{
-    font-family:'Orbitron',sans-serif;
-    font-size:3rem;
-    text-transform:uppercase;
-    color:#00e5ff;
-    text-shadow:0 0 15px #00e5ff;
+form button {
+    background: #00c3ff;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
 }
-
-/* CONTENIDO */
-main{
-    display:flex;
-    justify-content:center;
-    padding:40px 20px;
-    animation:fadeUp 1.5s ease-in;
+form button:hover {
+    background: #0099cc;
 }
-table{
-    border-collapse:collapse;
-    background:rgba(0,0,0,0.7);
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 0 20px #00e5ff;
-    min-width:700px;
+.resultado {
+    margin-top: 40px;
+    text-align: center;
+    color: #fff;
+    font-size: 1.2em;
+    background: rgba(0,0,0,0.4);
+    padding: 20px;
+    border-radius: 15px;
 }
-th,td{
-    padding:12px 20px;
-    text-align:center;
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    left: 0;
 }
-th{
-    background:rgba(0,229,255,0.3);
-    color:#00e5ff;
-    font-weight:700;
-    text-transform:uppercase;
-}
-td{
-    border-bottom:1px solid rgba(255,255,255,0.1);
-    font-weight:600;
-}
-
-/* FOOTER */
-footer{
-    background:rgba(0,0,0,0.7);
-    text-align:center;
-    padding:20px;
-    margin-top:40px;
-    font-size:0.9rem;
-    animation:fadeIn 2s ease-in;
-}
-
-/* ANIMACIONES */
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
-
 <body>
 <div id="particles-js"></div>
 
-<header>
-    <h1>Consulta 4 - Sueldo de Trabajadores</h1>
-</header>
+<form id="formPromedio">
+    <h2>Consulta 3 - Promedio de Alumno</h2>
+    <input type="text" id="nombre" placeholder="Nombre del alumno" required>
+    <select id="genero" required>
+        <option value="">Seleccione Género</option>
+        <option value="MASCULINO">Masculino</option>
+        <option value="FEMENINO">Femenino</option>
+    </select>
+    <input type="number" step="0.1" id="n1" placeholder="Nota 1" required>
+    <input type="number" step="0.1" id="n2" placeholder="Nota 2" required>
+    <input type="number" step="0.1" id="n3" placeholder="Nota 3" required>
+    <input type="number" step="0.1" id="n4" placeholder="Nota 4" required>
+    <button type="submit">Calcular</button>
+</form>
 
-<main>
-    <table>
-        <tr>
-            <th>NOMBRE</th>
-            <th>Horas trabajadas</th>
-            <th>Pago por hora</th>
-            <th>SB</th>
-            <th>RETE</th>
-            <th>SN</th>
-        </tr>
-        <?php foreach($trabajadores as $t): ?>
-        <tr>
-            <td><?= $t["nombre"] ?></td>
-            <td><?= $t["horas"] ?></td>
-            <td><?= $t["pago"] ?></td>
-            <td><?= $t["sb"] ?></td>
-            <td><?= $t["rete"] ?></td>
-            <td><?= $t["sn"] ?></td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
-</main>
+<div class="resultado" id="resultado" style="display:none;"></div>
 
-<footer>
-    <p>Derechos reservados por: Encinas Dávila Jeremy Stefano</p>
-</footer>
-
-<!-- Partículas -->
+<!-- particles.js -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
+// Efecto de partículas
 particlesJS("particles-js", {
   particles: {
-    number: { value: 80, density: { enable: true, value_area: 800 } },
-    color: { value: "#00e5ff" },
-    shape: { type: "circle" },
-    opacity: { value: 0.5 },
-    size: { value: 3, random: true },
-    line_linked: { enable: true, distance: 150, color: "#00e5ff", opacity: 0.4, width: 1 },
-    move: { enable: true, speed: 4, direction: "none", out_mode: "out" }
+    number: { value:80, density: { enable:true, value_area:800 }},
+    color: { value:"#ffffff" },
+    shape: { type:"circle" },
+    opacity: { value:0.5, random:true },
+    size: { value:3, random:true },
+    line_linked: { enable:false },
+    move: { enable:true, speed:2, random:true, out_mode:"out" }
   },
   interactivity: {
-    events: {
-      onhover: { enable: true, mode: "repulse" },
-      onclick: { enable: true, mode: "push" },
-      resize: true
-    },
-    modes: {
-      repulse: { distance: 100, duration: 0.4 },
-      push: { particles_nb: 4 }
-    }
+    events: { onhover:{ enable:true, mode:"repulse" }, onclick:{ enable:true, mode:"push" } },
+    modes: { repulse:{ distance:100, duration:0.4 }, push:{ particles_nb:4 } }
   },
   retina_detect: true
 });
+
+// Lógica de cálculo
+document.getElementById("formPromedio").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre").value.trim();
+    const genero = document.getElementById("genero").value;
+    const notas = [
+        parseFloat(document.getElementById("n1").value),
+        parseFloat(document.getElementById("n2").value),
+        parseFloat(document.getElementById("n3").value),
+        parseFloat(document.getElementById("n4").value)
+    ];
+
+    const pf = (notas.reduce((a,b) => a+b, 0) / notas.length).toFixed(2);
+    const np = (parseFloat(pf) + 1).toFixed(2); // Ajusta la fórmula si necesitas otra.
+
+    document.getElementById("resultado").style.display = "block";
+    document.getElementById("resultado").innerHTML = `
+        <h3>Resultados para: <strong>${nombre}</strong></h3>
+        <p>Género: <strong>${genero}</strong></p>
+        <p>Promedio Final (PF): <strong>${pf}</strong></p>
+        <p>Nuevo Promedio (NP): <strong>${np}</strong></p>
+    `;
+});
 </script>
+
 </body>
 </html>
+
