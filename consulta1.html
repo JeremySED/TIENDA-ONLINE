@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulta de Pago</title>
+
+<!-- Fuente -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Poppins',sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#2c5364,#203a43,#0f2027);
+    color:#fff;
+}
+.container{
+    background:rgba(0,0,0,0.6);
+    padding:30px 40px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,0,0,0.4);
+    width:320px;
+    text-align:center;
+}
+h1{
+    margin-bottom:20px;
+    color:#00e5ff;
+    text-shadow:0 0 10px #00e5ff;
+}
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+    text-align:left;
+}
+input,select,button{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    margin-bottom:10px;
+}
+input,select{
+    background:rgba(255,255,255,0.9);
+    color:#333;
+}
+button{
+    background:#00e5ff;
+    color:#000;
+    font-weight:600;
+    cursor:pointer;
+    transition:background 0.3s;
+}
+button:hover{
+    background:#00bcd4;
+}
+#resultado{
+    margin-top:20px;
+    background:rgba(0,0,0,0.5);
+    padding:15px;
+    border-radius:8px;
+    white-space:pre-line;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Consulta de Pago</h1>
+
+    <label for="sueldo">Sueldo Base:</label>
+    <input type="number" id="sueldo" placeholder="Ingresa el sueldo">
+
+    <label for="categoria">Categoría:</label>
+    <select id="categoria">
+        <option value="0">--Selecciona--</option>
+        <option value="1">Categoría 1 (30% aumento)</option>
+        <option value="2">Categoría 2 (20% aumento)</option>
+        <option value="3">Categoría 3 (15% aumento)</option>
+        <option value="4">Sin aumento</option>
+    </select>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="resultado"></div>
+</div>
+
+<script>
+function calcular(){
+    const sueldo = parseFloat(document.getElementById('sueldo').value);
+    const categoria = parseInt(document.getElementById('categoria').value);
+    let nuevoSueldo = sueldo;
+
+    if(isNaN(sueldo)){
+        alert("Ingresa un sueldo válido");
+        return;
+    }
+
+    switch(categoria){
+        case 1: nuevoSueldo = sueldo * 1.30; break;
+        case 2: nuevoSueldo = sueldo * 1.20; break;
+        case 3: nuevoSueldo = sueldo * 1.15; break;
+        // case 4: sin aumento
+        default: break;
+    }
+
+    const textoCategoria = categoria === 0 ? "No seleccionada" : categoria;
+    document.getElementById('resultado').textContent =
+        "El sueldo base es: $" + sueldo.toFixed(2) + "\n" +
+        "La categoría es: " + textoCategoria + "\n" +
+        "-----------------------------\n" +
+        "Nuevo Sueldo: $" + nuevoSueldo.toFixed(2);
+}
+</script>
+</body>
+</html>
+
+
