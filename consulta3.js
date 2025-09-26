@@ -1,33 +1,4 @@
-<?php
-// --- Lógica PHP --- //
-$resultado = "";
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = $_POST['nombre'];
-    $genero = strtoupper(trim($_POST['genero']));
-    $n1 = floatval($_POST['n1']);
-    $n2 = floatval($_POST['n2']);
-    $n3 = floatval($_POST['n3']);
-    $n4 = floatval($_POST['n4']);
-
-    // Promedio Final (PF)
-    $pf = ($n1 + $n2 + $n3 + $n4) / 4;
-
-    // Nuevo Promedio (NP)
-    if ($genero === "MASCULINO") {
-        $np = $pf + 3;
-    } else {
-        $np = $pf + 5;
-    }
-
-    $resultado = "
-        <div class='resultado'>
-            <h3>Resultados para: <strong>$nombre</strong></h3>
-            <p>Género: <strong>$genero</strong></p>
-            <p>Promedio Final (PF): <strong>$pf</strong></p>
-            <p>Nuevo Promedio (NP): <strong>$np</strong></p>
-        </div>";
-}
-?>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -36,7 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <title>Consulta 3 - Promedio Final</title>
 <link rel="stylesheet" href="consulta1.css">
 <style>
-/* --- Ajustes extra para este formulario --- */
 form {
     background: rgba(255,255,255,0.1);
     border-radius: 15px;
@@ -90,7 +60,7 @@ form button:hover {
 <body>
 <div id="particles-js"></div>
 
-<form method="POST">
+<form method="post" action="consulta3">
     <h2>Consulta 3 - Promedio de Alumno</h2>
     <input type="text" name="nombre" placeholder="Nombre del alumno" required>
     <select name="genero" required>
@@ -105,35 +75,38 @@ form button:hover {
     <button type="submit">Calcular</button>
 </form>
 
-<?php
-// Mostrar resultado si existe
-if($resultado) echo $resultado;
-?>
+<%-- Mostrar resultado si existen atributos --%>
+<%
+    if (request.getAttribute("nombre") != null) {
+%>
+    <div class="resultado">
+        <h3>Resultados para: <strong><%= request.getAttribute("nombre") %></strong></h3>
+        <p>Género: <strong><%= request.getAttribute("genero") %></strong></p>
+        <p>Promedio Final (PF): <strong><%= request.getAttribute("pf") %></strong></p>
+        <p>Nuevo Promedio (NP): <strong><%= request.getAttribute("np") %></strong></p>
+    </div>
+<%
+    }
+%>
 
 <!-- particles.js -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
 particlesJS("particles-js", {
-  "particles": {
-    "number": {"value":80, "density": {"enable":true,"value_area":800}},
-    "color": {"value":"#ffffff"},
-    "shape": {"type":"circle"},
-    "opacity": {"value":0.5,"random":true},
-    "size": {"value":3,"random":true},
-    "line_linked": {"enable":false},
-    "move": {"enable":true,"speed":2,"direction":"none","random":true,"straight":false,"out_mode":"out","bounce":false}
+  particles: {
+    number: { value:80, density: { enable:true, value_area:800 }},
+    color: { value:"#ffffff" },
+    shape: { type:"circle" },
+    opacity: { value:0.5, random:true },
+    size: { value:3, random:true },
+    line_linked: { enable:false },
+    move: { enable:true, speed:2, random:true, out_mode:"out" }
   },
-  "interactivity": {
-    "events": {
-      "onhover": {"enable":true,"mode":"repulse"},
-      "onclick": {"enable":true,"mode":"push"}
-    },
-    "modes": {
-      "repulse": {"distance":100,"duration":0.4},
-      "push": {"particles_nb":4}
-    }
+  interactivity: {
+    events: { onhover:{ enable:true, mode:"repulse" }, onclick:{ enable:true, mode:"push" } },
+    modes: { repulse:{ distance:100, duration:0.4 }, push:{ particles_nb:4 } }
   },
-  "retina_detect": true
+  retina_detect: true
 });
 </script>
 
